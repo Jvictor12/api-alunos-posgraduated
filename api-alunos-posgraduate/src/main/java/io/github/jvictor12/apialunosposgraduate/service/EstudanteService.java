@@ -1,54 +1,58 @@
 package io.github.jvictor12.apialunosposgraduate.service;
 
 import io.github.jvictor12.apialunosposgraduate.entity.Estudante;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import io.github.jvictor12.apialunosposgraduate.infraestrutura.exception.ObjectNotFoundException;
+import io.github.jvictor12.apialunosposgraduate.infraestrutura.exception.ValidationException;
+import io.github.jvictor12.apialunosposgraduate.repository.EstudanteRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class EstudanteService {
 
-    private static Map<Long, Estudante> listaEstudante = new HashMap<>();
+    @Autowired
+    private EstudanteRepository estudanteRepository;
 
-    public ResponseEntity<Estudante> buscarEstudanteById(Long id) {
-        Estudante estudante = listaEstudante.get(id);
-        if(estudante != null){
-            return ResponseEntity.status(HttpStatus.OK).body(estudante);
+    public Estudante findById(Long id) {
+        return estudanteRepository.findById(id).orElseThrow(()-> {
+            throw new ObjectNotFoundException("Estudante não encontrado");
+        });
+    }
+
+    public Page<Estudante> findAll(PageRequest request) {
+        return estudanteRepository.findAll(request);
+    }
+
+    public Estudante save(Estudante estudante) {
+        if (estudante == null){
+            throw new ValidationException("Estudante Nulo");
+        }
+        estudanteRepository.save(estudante);
+
+        return estudante;
+    }
+
+    public Estudante update(Estudante estudante) {
+        if (estudante == null){
+            throw new ValidationException("Estudante Nulo");
+        }
+        if (!estudanteRepository.existsById(estudante.getId())){
+            throw new ObjectNotFoundException("Estudante não cadastrado no sistema");
         }
 
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        estudanteRepository.save(estudante);
+
+        return estudante;
     }
 
-    public List<Estudante> buscarEstudantes() {
-        return new ArrayList<>(listaEstudante.values());
-
-    }
-
-    public ResponseEntity<Estudante> cadastrarEstudante(Estudante estudante) {
-        listaEstudante.put(estudante.getId(), estudante);
-        return ResponseEntity.status(HttpStatus.OK).body(estudante);
-    }
-
-    public ResponseEntity<Estudante> atualizarEstudante(Estudante estudante) {
-        Estudante estudanteEncontrado = listaEstudante.get(estudante.getId());
-        if (estudanteEncontrado == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+    public void delete(Long id) {
+        if (!estudanteRepository.existsById(id)){
+            throw new ObjectNotFoundException("Estudante não cadastrado no sistema");
         }
-        listaEstudante.put(estudante.getId(), estudante);
-        return ResponseEntity.status(HttpStatus.OK).body(estudante);
-    }
-
-    public ResponseEntity<String> excluirEstudante(Long id) {
-        Estudante estudanteEncontrado = listaEstudante.get(id);
-        if (estudanteEncontrado == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
-        }
-        listaEstudante.remove(id);
-        return ResponseEntity.status(HttpStatus.OK).body("Deletado");
+        estudanteRepository.deleteById(id);
     }
 }
