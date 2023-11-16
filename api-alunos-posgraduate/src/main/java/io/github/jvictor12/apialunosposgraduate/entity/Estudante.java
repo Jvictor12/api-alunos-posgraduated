@@ -1,15 +1,15 @@
 package io.github.jvictor12.apialunosposgraduate.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -27,4 +27,13 @@ public class Estudante {
     private String email;
 
     private LocalDate dataNascimento;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
+    @JoinColumn(name = "endereco_id")
+    private Endereco endereco;
+
+    @OneToMany(mappedBy = "estudante", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<Livro> livros;
 }

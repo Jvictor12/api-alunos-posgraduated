@@ -1,9 +1,7 @@
 package io.github.jvictor12.apialunosposgraduate.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,4 +23,9 @@ public class Endereco {
     private String cidade;
 
     private String cep;
+
+    @OneToOne(mappedBy = "endereco")
+    @JsonManagedReference
+    private Estudante estudante;
+
 }

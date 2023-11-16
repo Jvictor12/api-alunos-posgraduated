@@ -1,9 +1,8 @@
 package io.github.jvictor12.apialunosposgraduate.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,4 +18,9 @@ public class Livro {
 
     @Column (columnDefinition = "TEXT")
     private String descricao;
+
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "estudante_id", nullable = false)
+    private Estudante estudante;
 }
