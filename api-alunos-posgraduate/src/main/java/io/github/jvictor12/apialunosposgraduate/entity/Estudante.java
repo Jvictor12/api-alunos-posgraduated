@@ -36,4 +36,7 @@ public class Estudante {
     @OneToMany(mappedBy = "estudante", orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Livro> livros;
+
+    @OneToMany(mappedBy = "estudante")
+    private List<AvaliacaoCurso> avaliacaoCurso;
 }
