@@ -25,10 +25,6 @@ public class CursoService {
         });
     }
 
-    public Curso findByNome(String nome) {
-        return cursoRepository.findByNome(nome);
-    }
-
     public Curso save(Curso curso) {
         if (curso == null) {
             throw new ValidationException("Curso invalido");

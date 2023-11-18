@@ -3,10 +3,7 @@ package io.github.jvictor12.apialunosposgraduate.infraestrutura.service;
 import io.github.jvictor12.apialunosposgraduate.entity.Curso;
 import io.github.jvictor12.apialunosposgraduate.entity.Estudante;
 import io.github.jvictor12.apialunosposgraduate.entity.Livro;
-import io.github.jvictor12.apialunosposgraduate.service.ArquivoService;
-import io.github.jvictor12.apialunosposgraduate.service.CursoService;
-import io.github.jvictor12.apialunosposgraduate.service.EstudanteService;
-import io.github.jvictor12.apialunosposgraduate.service.LivroService;
+import io.github.jvictor12.apialunosposgraduate.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -28,6 +25,9 @@ public class Facade {
 
     @Autowired
     private CursoService cursoService;
+
+    @Autowired
+    private AvaliacaoCursoService avaliacaoCursoService;
 
     ////////////////////////////////////// ESTUDANTE //////////////////////////////////////////////
     public Page<Estudante> estudanteFindAll(PageRequest request) { return  estudanteService.findAll(request); };
@@ -58,11 +58,13 @@ public class Facade {
 
     public Curso cursoFindById(Long id) { return cursoService.findById(id); }
 
-    public Curso cursoFindByNome(String nome) { return cursoService.findByNome(nome); }
-
     public Curso cursoSave(Curso curso) { return cursoService.save(curso); }
 
     public Curso cursoUpdate(Curso curso) { return cursoService.update(curso); }
 
     public void cursoDelete(Long id) { cursoService.delete(id); }
+
+    ////////////////////////////////////// AVALIACAOCURSO //////////////////////////////////////////////
+
+    public String avaliacaoCursoAvaliar(Long idEstudante, String nomeCurso, Integer notaAvaliacao) { return avaliacaoCursoService.avaliar(idEstudante, nomeCurso, notaAvaliacao); }
 }

@@ -26,11 +26,6 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.OK).body(facade.cursoFindById(id));
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity findByNome(@PathVariable Long id) {
-//        return ResponseEntity.status(HttpStatus.OK).body(facade.cursoFindById(id));
-//    }
-
     @PostMapping
     public ResponseEntity save(@RequestBody @Valid Curso curso) {
         return ResponseEntity.status(HttpStatus.OK).body(facade.cursoSave(curso));
