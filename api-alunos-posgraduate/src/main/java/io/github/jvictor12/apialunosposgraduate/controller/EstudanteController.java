@@ -24,6 +24,11 @@ public class EstudanteController {
         return ResponseEntity.status(HttpStatus.OK).body(facade.estudanteFindById(id));
     }
 
+    @GetMapping("/avaliacaonull")
+    public ResponseEntity buscarEstudanteSemAvaliacao(){
+        return ResponseEntity.status(HttpStatus.OK).body(facade.estudantesFindByAvaliacaoCursoEstudanteIsNull());
+    }
+
     @GetMapping
     public ResponseEntity buscarEstudantes(@RequestParam(defaultValue = "0") Integer pagina, @RequestParam(defaultValue = "5") Integer itensPorPagina) {
         return ResponseEntity.status(HttpStatus.OK).body(facade.estudanteFindAll(PageRequest.of(pagina, itensPorPagina)));

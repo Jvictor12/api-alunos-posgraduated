@@ -29,6 +29,10 @@ public class EstudanteService {
         });
     }
 
+    public List<Estudante> findByAvaliacaoCursoNull(){
+        return estudanteRepository.findByAvaliacaoCursoEstudanteIsNull();
+    }
+
     public Page<Estudante> findAll(PageRequest request) {
         return estudanteRepository.findAll(request);
     }

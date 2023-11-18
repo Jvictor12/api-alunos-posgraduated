@@ -32,6 +32,8 @@ public class Facade {
     ////////////////////////////////////// ESTUDANTE //////////////////////////////////////////////
     public Page<Estudante> estudanteFindAll(PageRequest request) { return  estudanteService.findAll(request); };
 
+    public List<Estudante> estudantesFindByAvaliacaoCursoEstudanteIsNull() { return estudanteService.findByAvaliacaoCursoNull(); }
+
     public Estudante estudanteFindById(Long id ) { return estudanteService.findById(id); };
 
     public Estudante estudanteSave(Estudante estudante) { return estudanteService.save(estudante); };
