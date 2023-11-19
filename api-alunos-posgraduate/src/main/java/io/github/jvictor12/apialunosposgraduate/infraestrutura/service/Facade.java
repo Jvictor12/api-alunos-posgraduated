@@ -29,6 +29,9 @@ public class Facade {
     @Autowired
     private AvaliacaoCursoService avaliacaoCursoService;
 
+    @Autowired
+    private AsyncService asyncService;
+
     ////////////////////////////////////// ESTUDANTE //////////////////////////////////////////////
     public Page<Estudante> estudanteFindAll(PageRequest request) { return  estudanteService.findAll(request); };
 
@@ -69,4 +72,8 @@ public class Facade {
     ////////////////////////////////////// AVALIACAOCURSO //////////////////////////////////////////////
 
     public String avaliacaoCursoAvaliar(Long idEstudante, String nomeCurso, Integer notaAvaliacao) { return avaliacaoCursoService.avaliar(idEstudante, nomeCurso, notaAvaliacao); }
+
+    ////////////////////////////////////// ASYNC GERAR RELATORIO //////////////////////////////////////////////
+
+    public void asynGerarRelatorio() throws InterruptedException { asyncService.gerarRelatorio(); }
 }
