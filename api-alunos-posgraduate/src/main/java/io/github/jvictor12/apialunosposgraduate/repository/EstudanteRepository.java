@@ -23,4 +23,6 @@ public interface EstudanteRepository extends JpaRepository<Estudante, Long> {
 //    List<Estudante> findByAvaliacaoCursoEstudanteIsNullJPQL();
 
     List<Estudante> findByAvaliacaoCursoEstudanteIsNull();
+
+    Estudante findByLogin (String login);
 }

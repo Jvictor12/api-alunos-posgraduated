@@ -2,7 +2,6 @@ package io.github.jvictor12.apialunosposgraduate.controller;
 
 import io.github.jvictor12.apialunosposgraduate.entity.Estudante;
 import io.github.jvictor12.apialunosposgraduate.infraestrutura.service.Facade;
-import io.github.jvictor12.apialunosposgraduate.service.EstudanteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
