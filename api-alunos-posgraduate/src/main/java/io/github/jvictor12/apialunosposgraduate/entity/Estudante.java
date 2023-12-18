@@ -1,6 +1,5 @@
 package io.github.jvictor12.apialunosposgraduate.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -37,15 +36,14 @@ public class Estudante implements UserDetails {
     private LocalDate dataNascimento;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JsonBackReference
-    @JoinColumn(name = "endereco_id")
+    @JsonManagedReference
     private Endereco endereco;
 
-    @OneToMany(mappedBy = "estudante", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudante")
     @JsonManagedReference
     private List<Livro> livros;
 
-    @OneToMany(mappedBy = "estudante")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudante")
     @JsonManagedReference
     private List<AvaliacaoCurso> avaliacaoCurso;
 
@@ -56,22 +54,22 @@ public class Estudante implements UserDetails {
 
     @Override
     public String getPassword() {
-        return null;
+        return getPassword();
     }
 
     @Override
     public String getUsername() {
-        return null;
+        return getLogin();
     }
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return false;
+        return true;
     }
 
     @Override

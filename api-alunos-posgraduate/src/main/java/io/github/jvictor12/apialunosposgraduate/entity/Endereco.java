@@ -1,5 +1,6 @@
 package io.github.jvictor12.apialunosposgraduate.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,6 @@ public class Endereco {
     private String cep;
 
     @OneToOne(mappedBy = "endereco")
-    @JsonManagedReference
+    @JsonBackReference
     private Estudante estudante;
-
 }

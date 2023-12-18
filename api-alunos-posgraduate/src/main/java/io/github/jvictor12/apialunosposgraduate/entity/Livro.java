@@ -20,7 +20,7 @@ public class Livro {
     private String descricao;
 
     @ManyToOne
+    @JoinColumn(name = "estudante_id")
     @JsonBackReference
-    @JoinColumn(name = "estudante_id", nullable = false)
     private Estudante estudante;
 }

@@ -59,6 +59,8 @@ public class AuthConfig {
         return http
                 .authorizeHttpRequests(requests -> {
                     requests.requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.POST, "/api/auth/**")).permitAll();
+                    requests.requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.GET, "/estudantes")).permitAll();
+                    requests.requestMatchers(AntPathRequestMatcher.antMatcher(HttpMethod.POST, "/estudantes")).permitAll();
                     requests.anyRequest().authenticated();
                 })
                 .cors(cors -> cors.configurationSource(corsConfigurationSource))

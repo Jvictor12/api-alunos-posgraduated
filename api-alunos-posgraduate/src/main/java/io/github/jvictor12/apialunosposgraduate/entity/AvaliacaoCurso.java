@@ -12,17 +12,19 @@ import lombok.NoArgsConstructor;
 @Entity(name = "tb_avaliacaoCurso")
 public class AvaliacaoCurso {
 
-    @EmbeddedId
-    private AvaliacaoCursoKey id = new AvaliacaoCursoKey();
+//    @EmbeddedId
+//    private AvaliacaoCursoKey id = new AvaliacaoCursoKey();
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
-    @MapsId("estudanteId")
     @JoinColumn(name = "estudante_id")
     @JsonBackReference
     private Estudante estudante;
 
     @ManyToOne
-    @MapsId("cursoId")
     @JoinColumn(name = "curso_id")
     @JsonBackReference
     private Curso curso;
