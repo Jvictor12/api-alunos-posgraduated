@@ -3,13 +3,12 @@ package io.github.jvictor12.apialunosposgraduate.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity(name = "tb_endereco")
 public class Endereco {
 
@@ -24,8 +23,4 @@ public class Endereco {
     private String cidade;
 
     private String cep;
-
-    @OneToOne(mappedBy = "endereco")
-    @JsonBackReference
-    private Estudante estudante;
 }

@@ -2,15 +2,14 @@ package io.github.jvictor12.apialunosposgraduate.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity(name = "tb_curso")
 public class Curso {
 
@@ -21,6 +20,6 @@ public class Curso {
     private String nome;
 
     @OneToMany(mappedBy = "curso")
-    @JsonManagedReference
+    @JsonManagedReference(value = "cursoAvaliacaoCurso")
     private List<AvaliacaoCurso> avaliacaoCurso;
 }

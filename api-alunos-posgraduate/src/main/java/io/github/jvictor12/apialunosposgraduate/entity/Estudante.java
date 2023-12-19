@@ -2,10 +2,7 @@ package io.github.jvictor12.apialunosposgraduate.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,7 +11,9 @@ import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -36,15 +35,16 @@ public class Estudante implements UserDetails {
     private LocalDate dataNascimento;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
     private Endereco endereco;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudante")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "estudante", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "estudanteLivros")
+    @ToString.Exclude
     private List<Livro> livros;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "estudante")
-    @JsonManagedReference
+    @OneToMany(mappedBy = "estudante", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference(value = "estudanteAvaliacaoCurso")
+    @ToString.Exclude
     private List<AvaliacaoCurso> avaliacaoCurso;
 
     @Override
@@ -54,12 +54,12 @@ public class Estudante implements UserDetails {
 
     @Override
     public String getPassword() {
-        return getPassword();
+        return senha;
     }
 
     @Override
     public String getUsername() {
-        return getLogin();
+        return login;
     }
 
     @Override

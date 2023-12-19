@@ -6,7 +6,8 @@ import lombok.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity(name = "tb_livro")
 public class Livro {
 
@@ -21,6 +22,6 @@ public class Livro {
 
     @ManyToOne
     @JoinColumn(name = "estudante_id")
-    @JsonBackReference
+    @JsonBackReference(value = "estudanteLivros")
     private Estudante estudante;
 }
